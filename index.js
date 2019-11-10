@@ -10,11 +10,6 @@ inquirer
   .prompt([
     {
       type: "input",
-      name: "name",
-      message: "what is your name?"
-    },
-    {
-      type: "input",
       message: "Enter your GitHub username",
       name: "username"
     },
@@ -29,6 +24,7 @@ inquirer
     axios
       .get(queryUrl)
       .then(res => {
+        console.log(res);
         const profileName = res.data.name;
         const location = res.data.location;
         const profileIMG = res.data.avatar_url;
@@ -48,35 +44,48 @@ inquirer
       })
       .then(urlData => {
         const writtenFIle = `
-  <!DOCTYPE html>
-  <html lang="en">
+        <!DOCTYPE html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="node_modules/frow/dist/frow.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="node_modules/frow/dist/frow.min.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap"
+      rel="stylesheet"
+    />
     <title>Document</title>
   </head>
   <body>
-  <h1>
-    hello ${urlData.name}
-  </h1>
-  <img src="${urlData.profileIMG}">
-  <div>
-    location: ${urlData.location}
-  </div>
-  <div>
-    number of repos: ${urlData.userRepo}
-  </div>
-  <div>
-    number of followers: ${urlData.numFollower}
-  </div>
-  <div>
-    numer of people following: ${urlData.numFollowing}
-  </div>
-
+    <header class="frow row-center shadow-light">
+      <div>Profile Generator</div>
+    </header>
+    <div class="frow-container text-center">
+      <h1>
+        Hello ${urlData.name}!
+      </h1>
+      <img class="shadow-light profile-image"
+        src="${urlData.image}"
+      />
+      <div>
+       location: ${urlData.userlocation}
+      </div>
+      <div class="frow content-around">
+        <div class="col-md-1-3 card">
+          ${urlData.userRepo} repos
+        </div>
+        <div class="col-md-1-3 card">
+          ${urlData.numFollower} followers
+        </div>
+        <div class="col-md-1-3 card">
+         Following: ${urlData.numFollowing} people
+        </div>
+      </div>
+    </div>
   </body>
-  </html>`;
+</html>`;
 
         return writeFileAsync("index.html", writtenFIle);
       })

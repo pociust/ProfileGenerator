@@ -1,0 +1,39 @@
+:root {
+  --theme-color: #727272;
+  --theme-color-light: #eee;
+  --theme-color-dark: #333;
+  --animation-speed: 0.8s;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+
+header {
+  height: 70px;
+  font-size: 30px;
+  font-weight: 700;
+  padding: 0 25px;
+  background-color: var(--theme-color-light);
+  color: var(--theme-color-dark);
+  transition: background-color var(--animation-speed),
+    color var(--animation-speed);
+}
+
+.profile-image {
+  height: 275px;
+  width: auto;
+  border-radius: 75px;
+}
+.card {
+  width: 100%;
+  background-color: var(--theme-color);
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+  font-size: 23px;
+  margin: 8px;
+  padding: 8px 0;
+  transition: background-color var(--animation-speed);
+}
