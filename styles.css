@@ -2,7 +2,6 @@
   --theme-color: #727272;
   --theme-color-light: #eee;
   --theme-color-dark: #333;
-  --animation-speed: 0.8s;
 }
 
 body {
@@ -17,8 +16,6 @@ header {
   padding: 0 25px;
   background-color: var(--theme-color-light);
   color: var(--theme-color-dark);
-  transition: background-color var(--animation-speed),
-    color var(--animation-speed);
 }
 
 .profile-image {
@@ -35,5 +32,4 @@ header {
   font-size: 23px;
   margin: 8px;
   padding: 8px 0;
-  transition: background-color var(--animation-speed);
 }
