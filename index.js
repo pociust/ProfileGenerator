@@ -111,18 +111,19 @@ inquirer
       })
       .then(() => {
         console.log("look left");
+        return createPDF();
       })
       .catch(err => {
         console.log(err);
       });
-  })
-  .then(() => {
-    // Because async functions are promises under the hood we can treat the run function as a promise
-    return createPDF();
-  })
-  .catch(err => {
-    console.log(err);
   });
+// .then(() => {
+//   // Because async functions are promises under the hood we can treat the run function as a promise
+
+// })
+// .catch(err => {
+//   console.log(err);
+// });
 // .catch(handleErrors);
 
 // Promise.resolve("something")
