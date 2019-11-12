@@ -1,10 +1,30 @@
 const inquirer = require("inquirer");
 const util = require("util");
 const fs = require("fs");
-const pdf = require("html-pdf");
+// const pdf = require("html-pdf");
 const axios = require("axios");
+const HTML5ToPDF = require("html5-to-pdf");
+const path = require("path");
 
 const writeFileAsync = util.promisify(fs.writeFile);
+
+const createPDF = async () => {
+  const html5ToPDF = new HTML5ToPDF({
+    inputPath: path.join(__dirname, "./temp.html"),
+    outputPath: path.join(__dirname, "./touchdown.pdf"),
+    // templatePath: path.join(__dirname, "templates", "basic"),
+    include: [
+      path.join(__dirname, "./node_modules/frow/dist/frow.min.css"),
+      path.join(__dirname, "./styles.css")
+    ]
+  });
+
+  await html5ToPDF.start();
+  await html5ToPDF.build();
+  await html5ToPDF.close();
+  console.log("DONE");
+  process.exit(0);
+};
 
 inquirer
   .prompt([
@@ -87,7 +107,7 @@ inquirer
   </body>
 </html>`;
 
-        return writeFileAsync("index.html", writtenFIle);
+        return writeFileAsync("temp.html", writtenFIle);
       })
       .then(() => {
         console.log("look left");
@@ -97,10 +117,27 @@ inquirer
       });
   })
   .then(() => {
-    const html = fs.readFileSync("./index.html", "utf8");
-    const options = { format: "Letter" };
-    pdf.create(html, options).toFile("./touchdown.pdf", (err, res) => {
-      if (err) return console.log(err);
-      console.log(res);
-    });
+    // Because async functions are promises under the hood we can treat the run function as a promise
+    return createPDF();
+  })
+  .catch(err => {
+    console.log(err);
   });
+// .catch(handleErrors);
+
+// Promise.resolve("something")
+//   .then(result => {
+//     return doSomething(result);
+//   })
+//   .then(result => {
+//     // Because async functions are promises under the hood we can treat the run function as a promise
+//     return run();
+//   })
+//   .catch(handleErrors);
+
+// // // Usage in try/catch block
+// try {
+//   run();
+// } catch (error) {
+//   console.error(error);
+// }
