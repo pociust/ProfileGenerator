@@ -7,28 +7,28 @@ const path = require("path");
 const writeFileAsync = util.promisify(fs.writeFile);
 const themes = {
   red: {
-    main: "#E57373",
-    light: "#FFCDD2",
-    dark: "#D32F2F"
+    main: "#e57373",
+    light: "#ffcdd2",
+    dark: "#d32f2f"
   },
   orange: {
-    main: "#FB8C00",
-    light: "#FFCC80",
-    dark: "#EF6C00"
+    main: "#fb8c00",
+    light: "#ffecb3",
+    dark: "#ef6c00"
   },
   green: {
-    main: "#00897B",
-    light: "#B2DFDB",
-    dark: "#00695C"
+    main: "#00897b",
+    light: "#b2dfdb",
+    dark: "#00695c"
   },
   blue: {
     main: "#2196F3",
-    light: "#90CAF9",
+    light: "#e1f5fe",
     dark: "#0D47A1"
   },
   purple: {
-    main: "#5E35B1",
-    light: "#9575CD",
+    main: "#5C6BC0",
+    light: "#c5cae9",
     dark: "#4527A0"
   },
 
@@ -51,26 +51,19 @@ const themes = {
 
 const changeTheme = color => {
   console.log("color", color);
-  fs.appendFile('./styles.css', `
+  fs.appendFile(
+    "./styles.css",
+    `
   :root {
     --theme-color: ${themes[color].main};
     --theme-color-light:${themes[color].light};
     --theme-color-dark: ${themes[color].dark};
-  }`, function (err) {
-    if (err) throw err;
-    console.log('Updated!');
-  });
-// "--theme-color", themes[color].main);
-//document.documentElement.style.setProperty("--theme-color", themes[color].main)
-//   "--theme-color-light",
-// document.documentElement.style.setProperty(
-//   "--theme-color-light",
-//   themes[color].light
-// );
-// document.documentElement.style.setProperty(
-//   "--theme-color-dark",
-//   themes[color].dark
-// );
+  }`,
+    function(err) {
+      if (err) throw err;
+      console.log("Updated!");
+    }
+  );
 };
 const addRepoStars = repos =>
   repos.reduce(
@@ -164,24 +157,24 @@ inquirer
       <div>Profile Generator</div>
     </header>
     <div class="frow-container text-center">
-      <h1>
+      <h1 class="my-10">
         Hello ${urlData.name}!
       </h1>
       <img class="shadow-light profile-image"
         src="${urlData.image}"
       />
-      <div>
+      <div class="my-5">
        location: ${urlData.userlocation}
       </div>
       <div class="frow content-around">
         <div class="col-xs-1-3 card">
-          ${urlData.userRepo} repos
+          ${urlData.userRepo} Repos
         </div>
         <div class="col-xs-1-3 card">
-          ${urlData.numFollower} followers
+          ${urlData.numFollower} Followers
         </div>
         <div class="col-xs-1-3 card">
-         Following: ${urlData.numFollowing} people
+         Following: ${urlData.numFollowing} People
         </div>
         <div class="col-xs-1-3 card">
          Stars: ${userRepoStar}
